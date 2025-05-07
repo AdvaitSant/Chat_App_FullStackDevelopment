@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import ChatPage from "./components/ChatPage";
 
-function App() {
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleLogin = (user) => {
+    setUsername(user);
+    setLoggedIn(true);
+  };
+
+  const handleUserSelection = (user) => {
+    setSelectedUser(user);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={<LoginPage onLogin={handleLogin} />}
+        />
+        <Route
+          path="/chat"
+          element={
+            <ChatPage 
+              username={username} 
+              selectedUser={selectedUser} 
+              onUserSelect={handleUserSelection} 
+            />
+          }
+        />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
