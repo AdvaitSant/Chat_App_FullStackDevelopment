@@ -27,8 +27,8 @@ export default function ChatPage({ username: propUsername }) {
     const handleReceiveMessage = (msg) => {
       const { sender, receiver } = msg;
 
-      if (receiver !== username) return; // Ignore if not meant for this user
-      if (sender === username) return;   // Ignore own message coming back
+      if (receiver !== username) return; 
+      if (sender === username) return;   
 
       setChat((prevChat) => {
         const updatedChat = { ...prevChat };
